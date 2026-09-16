@@ -33,7 +33,10 @@ class DataProtocolTests(unittest.TestCase):
                 "userID": range(1, 11),
                 "movieID": [99, 1, 2, 3, 4, 5, 6, 7, 99, 99],
                 "rating": [4.0] * 10,
-                "timestamp": (timestamps.astype("int64") // 1_000_000).tolist(),
+                # Convert explicitly through POSIX seconds. Pandas 2 uses
+                # nanoseconds here while Pandas 3 may use microseconds, so
+                # dividing the raw integer representation is not portable.
+                "timestamp": [int(value.timestamp() * 1_000) for value in timestamps],
             }
         )
         ratings.to_csv(
