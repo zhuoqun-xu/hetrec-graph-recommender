@@ -18,3 +18,12 @@ data/
 *.pt
 *.pth
 *.jsonl
+
+# Local research notes intentionally excluded from the public repository.
+01_数据审计_2026-09-15.md
+02_热门推荐基线_2026-09-15.md
+03_相似用户协同过滤基线_2026-09-15.md
+04_BPR矩阵分解基线_2026-09-15.md
+05_异构图推荐模型设计_v1_2026-09-15.md
+06_时间异常敏感性协议_2026-09-15.md
+07_异构图实现与实验结果_2026-09-15.md
