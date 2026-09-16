@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If this repository supports your work, please cite it using this metadata."
+title: "HetRec movie recommendations from shared actors and directors"
+type: software
+authors:
+  - family-names: Xu
+    given-names: Zhuoqun
+repository-code: "https://github.com/zhuoqun-xu/hetrec-graph-recommender"
+url: "https://github.com/zhuoqun-xu/hetrec-graph-recommender"
+version: 0.1.0
+date-released: 2026-09-16
+license: MIT

@@ -1,0 +1,38 @@
+[project]
+name = "hetrec-graph-recommender"
+version = "0.1.0"
+description = "A reproducible negative-result study of movie meta-path recommendation on HetRec 2011"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Zhuoqun Xu" },
+]
+dependencies = [
+  "numpy>=1.24,<3",
+  "pandas>=2.0,<4",
+  "torch>=2.0,<3",
+]
+
+[project.scripts]
+hetrec-audit = "audit_dataset:main"
+hetrec-popularity = "run_popularity_baseline:main"
+hetrec-user-cf = "run_user_cf_baseline:main"
+hetrec-bpr = "run_bpr_mf_baseline:main"
+hetrec-meta-path = "run_meta_path_recommender:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = [
+  "audit_dataset",
+  "data_protocol",
+  "graph_data",
+  "meta_path_model",
+  "run_bpr_mf_baseline",
+  "run_meta_path_recommender",
+  "run_popularity_baseline",
+  "run_user_cf_baseline",
+]
