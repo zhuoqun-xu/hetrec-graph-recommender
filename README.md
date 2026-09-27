@@ -71,15 +71,15 @@ flowchart TB
 
 Let $S_p(m)$ be the sampled neighbors of movie $m$ along actor or director path $p$, and let $e_m$ be its learned ID vector. The self branch and each nonempty relation branch are computed as follows:
 
-$$h_{m,\mathrm{self}}=\operatorname{L2Norm}(\operatorname{ReLU}(W_{\mathrm{self}}e_m+b_{\mathrm{self}})),$$
+$$h_{m,\mathrm{self}}=\mathrm{L2Norm}(\mathrm{ReLU}(W_{\mathrm{self}}e_m+b_{\mathrm{self}})),$$
 
-$$\bar e_{m,p}=\frac{1}{|S_p(m)|}\sum_{n\in S_p(m)}e_n,\qquad h_{m,p}=\operatorname{L2Norm}(\operatorname{ReLU}(W_p[e_m\,\|\,\bar e_{m,p}]+b_p)).$$
+$$\bar e_{m,p}=\frac{1}{|S_p(m)|}\sum_{n\in S_p(m)}e_n,\qquad h_{m,p}=\mathrm{L2Norm}(\mathrm{ReLU}(W_p[e_m\,\|\,\bar e_{m,p}]+b_p)).$$
 
 A small attention network scores the self, actor and director branches for each movie: $a_{m,p}=w^{\mathsf T}\tanh(W_a h_{m,p}+b_a)+c_a$. Softmax over available branches gives $\alpha_{m,p}$; then $z_m=\sum_p\alpha_{m,p}h_{m,p}$ and $s(u,m)=e_u^{\mathsf T}z_m+c_m$. Attention weights branches, not individual neighbors.
 
 For a positive $(u,m^+)$ and a sampled unrated candidate $m^-$, the training loss is
 
-$$L=\frac{1}{|D|}\sum_{(u,m^+,m^-)\in D}\operatorname{softplus}(s(u,m^-)-s(u,m^+)).$$
+$$L=\frac{1}{|D|}\sum_{(u,m^+,m^-)\in D}\mathrm{softplus}(s(u,m^-)-s(u,m^+)).$$
 
 Code map: [data split and evaluator](data_protocol.py) → [relation sampling](graph_data.py) → [movie encoder and scoring](meta_path_model.py) → [training and controls](run_meta_path_recommender.py).
 

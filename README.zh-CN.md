@@ -71,15 +71,15 @@ flowchart TB
 
 设 $S_p(m)$ 为电影 $m$ 在演员或导演路径 $p$ 下采到的邻居，$e_m$ 为电影 ID 向量。自身分支与非空关系分支的计算为：
 
-$$h_{m,\mathrm{self}}=\operatorname{L2Norm}(\operatorname{ReLU}(W_{\mathrm{self}}e_m+b_{\mathrm{self}})),$$
+$$h_{m,\mathrm{self}}=\mathrm{L2Norm}(\mathrm{ReLU}(W_{\mathrm{self}}e_m+b_{\mathrm{self}})),$$
 
-$$\bar e_{m,p}=\frac{1}{|S_p(m)|}\sum_{n\in S_p(m)}e_n,\qquad h_{m,p}=\operatorname{L2Norm}(\operatorname{ReLU}(W_p[e_m\,\|\,\bar e_{m,p}]+b_p)).$$
+$$\bar e_{m,p}=\frac{1}{|S_p(m)|}\sum_{n\in S_p(m)}e_n,\qquad h_{m,p}=\mathrm{L2Norm}(\mathrm{ReLU}(W_p[e_m\,\|\,\bar e_{m,p}]+b_p)).$$
 
 注意力网络为自身、演员、导演三个分支分别计算 $a_{m,p}=w^{\mathsf T}\tanh(W_a h_{m,p}+b_a)+c_a$，只对可用分支做 softmax，得到 $\alpha_{m,p}$。融合向量为 $z_m=\sum_p\alpha_{m,p}h_{m,p}$，用户 $u$ 对电影 $m$ 的分数是 $s(u,m)=e_u^{\mathsf T}z_m+c_m$。注意力是在分支之间分配权重，不是逐个邻居打权重。
 
 对训练正例 $(u,m^+)$ 和抽样的未评分电影 $m^-$，损失为：
 
-$$L=\frac{1}{|D|}\sum_{(u,m^+,m^-)\in D}\operatorname{softplus}(s(u,m^-)-s(u,m^+)).$$
+$$L=\frac{1}{|D|}\sum_{(u,m^+,m^-)\in D}\mathrm{softplus}(s(u,m^-)-s(u,m^+)).$$
 
 对应代码：[数据切分与评估](data_protocol.py) → [关系采样](graph_data.py) → [电影编码与打分](meta_path_model.py) → [训练与消融](run_meta_path_recommender.py)。
 

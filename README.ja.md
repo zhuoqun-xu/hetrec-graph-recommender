@@ -71,15 +71,15 @@ flowchart TB
 
 俳優または監督のパス $p$ に沿った映画 $m$ のサンプリング済み近傍を $S_p(m)$、学習可能な ID ベクトルを $e_m$ とします。自己分岐と、近傍が空でない関係分岐は次のように計算します。
 
-$$h_{m,\mathrm{self}}=\operatorname{L2Norm}(\operatorname{ReLU}(W_{\mathrm{self}}e_m+b_{\mathrm{self}})),$$
+$$h_{m,\mathrm{self}}=\mathrm{L2Norm}(\mathrm{ReLU}(W_{\mathrm{self}}e_m+b_{\mathrm{self}})),$$
 
-$$\bar e_{m,p}=\frac{1}{|S_p(m)|}\sum_{n\in S_p(m)}e_n,\qquad h_{m,p}=\operatorname{L2Norm}(\operatorname{ReLU}(W_p[e_m\,\|\,\bar e_{m,p}]+b_p)).$$
+$$\bar e_{m,p}=\frac{1}{|S_p(m)|}\sum_{n\in S_p(m)}e_n,\qquad h_{m,p}=\mathrm{L2Norm}(\mathrm{ReLU}(W_p[e_m\,\|\,\bar e_{m,p}]+b_p)).$$
 
 小規模な注意ネットワークで、映画ごとに自己・俳優・監督の各分岐をスコアリングします: $a_{m,p}=w^{\mathsf T}\tanh(W_a h_{m,p}+b_a)+c_a$。利用可能な分岐上で softmax を取り $\alpha_{m,p}$ とし、$z_m=\sum_p\alpha_{m,p}h_{m,p}$、$s(u,m)=e_u^{\mathsf T}z_m+c_m$ とします。注意機構が重み付けするのは近傍個々ではなく分岐です。
 
 ポジティブな組 $(u,m^+)$ とサンプリングした未評価候補 $m^-$ に対する学習損失は次のとおりです。
 
-$$L=\frac{1}{|D|}\sum_{(u,m^+,m^-)\in D}\operatorname{softplus}(s(u,m^-)-s(u,m^+)).$$
+$$L=\frac{1}{|D|}\sum_{(u,m^+,m^-)\in D}\mathrm{softplus}(s(u,m^-)-s(u,m^+)).$$
 
 コード構成: [データ分割と評価器](data_protocol.py) → [関係のサンプリング](graph_data.py) → [映画エンコーダーとスコアリング](meta_path_model.py) → [学習と比較実験](run_meta_path_recommender.py)。
 
@@ -137,4 +137,3 @@ make experiment DATA_DIR=/path/to/hetrec2011-movielens-2k-v2
 ## 制限事項
 
 映画メタデータの一部は評価時刻より後に集められた可能性があります。公開年との矛盾を除外しても、時間に関する問題をすべて解消できるわけではありません。俳優と監督は映画間リンクの定義にのみ使い、学習可能なノードベクトルは持ちません。各パスの近傍サンプルは最大 10 件で、監督リンクは疎です。本モデルは学習時に観測済みのユーザーと映画を対象としており、新規ユーザーや新規映画用の ID ベクトルはありません。BPR-MF の学習予算は短く、実験は単一の時系列分割と 3 シードで行っています。
-
