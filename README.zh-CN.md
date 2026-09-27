@@ -4,7 +4,7 @@
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-简体中文 · [English](README.md)
+简体中文 · [English](README.md) · [日本語](README.ja.md)
 
 我把 2021 年本科毕业论文中的异构图表示思路，改造成一个电影 Top-20 推荐实验。这个仓库放了可运行的代码、实验规则和结果。
 

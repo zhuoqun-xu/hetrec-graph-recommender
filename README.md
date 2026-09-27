@@ -4,7 +4,7 @@
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-[简体中文](README.zh-CN.md) · English
+[简体中文](README.zh-CN.md) · English · [日本語](README.ja.md)
 
 I turned a heterogeneous-graph representation idea from my **2021 undergraduate thesis** into a Top-20 movie recommendation experiment. This repository has the runnable code, evaluation setup and results.
 
